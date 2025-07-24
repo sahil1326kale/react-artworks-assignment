@@ -23,7 +23,7 @@ const ArtworksTable:React.FC=()=>{
   const [loading,setLoading]=useState<boolean>(false);
   const [totalRecords,setTotalRecords]=useState<number>(0);
   const [selectedArtworks,setSelectedArtworks]=useState<Artwork[]>([]);
-  const [targetBulkSelectCount,setTargetBulkSelectCount]=useState<number|null>(null);
+  const []=useState<number|null>(null);
   const overlayRef=useRef<OverlayPanel>(null);
   const [bulkSelectCount,setBulkSelectCount]=useState<string>("");
 
@@ -57,14 +57,6 @@ const ArtworksTable:React.FC=()=>{
     setPage(newPage);
   };
 
-  const onRowSelect=(artwork:Artwork,isSelected:boolean)=>{
-    setSelectedArtworks(prev=>{
-      const newSelected=isSelected
-        ?[...prev,artwork]
-        :prev.filter(a=>a.id!==artwork.id);
-      return newSelected;
-    });
-  };
 
   const onSelectAllCurrentPage=(isSelected:boolean)=>{
     setSelectedArtworks(prev=>{
@@ -114,13 +106,6 @@ const ArtworksTable:React.FC=()=>{
     }
   };
 
-  const checkboxBodyTemplate=(rowData:Artwork)=>(
-    <Checkbox
-      checked={selectedArtworks.some(a=>a.id===rowData.id)}
-      onChange={e=>onRowSelect(rowData,!!e.checked)}
-      aria-label={`Select artwork titled: ${rowData.title}`}
-    />
-  );
 
   const headerCheckbox=()=>(
     <div style={{display:"flex",alignItems:"center"}}>
@@ -170,7 +155,6 @@ const ArtworksTable:React.FC=()=>{
     </div>
   );
 
-  const selectedRowsCurrentPage=artworks.filter(a=>selectedArtworks.some(s=>s.id===a.id));
 
   return(
     <div style={{padding:"1rem"}}>
